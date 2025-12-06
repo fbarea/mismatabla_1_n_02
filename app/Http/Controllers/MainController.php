@@ -18,11 +18,15 @@ class MainController extends Controller
 
         $categorias = Collection::hierarchy(Category::class,'category_name',$type,'&nbsp;',4);
 
+        dd($categorias);
+
+        /*
         return view('categories.listado')
             ->with([
                 'categorias'=>$categorias,
                 'type'=>$type
             ]);
+            */
     }
 
     public function create(){
@@ -52,8 +56,8 @@ class MainController extends Controller
 
         $request->validate($reglas, $mensajes);
 
-        $request->category_name = str_replace(['<', '>'], '-', $request->category_name);
-        $request->category_description = str_replace(['<', '>'], '-', $request->category_description);
+        $request['category_name'] = str_replace(['<', '>'], '-', $request->category_name);
+        $request['category_description'] = str_replace(['<', '>'], '-', $request->category_description);
 
         $nuevaCategoria = new Category;
         $nuevaCategoria->category_name = $request->category_name;

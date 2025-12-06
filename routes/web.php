@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,3 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\MainController@index')->name('inicio'); 
+
+Route::get('listado/{type}',[MainController::class,'list'])->name('categories.list');
+Route::get('nueva',[MainController::class,'create'])->name('categories.create');
+Route::post('grabar',[MainController::class,'store'])->name('categories.store');

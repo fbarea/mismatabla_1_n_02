@@ -11,21 +11,27 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('category_name');
-            $table->text('category_description');
- 
-            // Clave foranea autorreferenciada
-            $table->foreignId('parent_id')
-            ->nullable()
-            ->constrained('categories')
-            ->onDelete('cascade');
-             
+            $table->text('category_description')->nullable();
+
+            // Columna parent_id para jerarquía
+            $table->unsignedBigInteger('parent_id')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
-             
         });
+             
+        // Opción: agregar foreign key solo si la base lo soporta
+        if (Schema::getConnection()->getDriverName() !== 'sqlite') {
+            Schema::table('categories', function (Blueprint $table) {
+                $table->foreign('parent_id')
+                      ->references('id')
+                      ->on('categories')
+                      ->onDelete('cascade');
+            });
+        }
     }
 
     /**
