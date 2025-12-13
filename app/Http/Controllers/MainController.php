@@ -20,6 +20,7 @@ class MainController extends Controller
 
         dd($categorias);
 
+
         /*
         return view('categories.listado')
             ->with([
@@ -44,6 +45,8 @@ class MainController extends Controller
         $reglas = [
             'category_name' => 'required|max:255'
         ];
+
+        // si tiene una categoría padre
         if ($request->parent_id != '00') {
             $reglas['parent_id'] = 'exists:categories,id';
         }
@@ -56,6 +59,7 @@ class MainController extends Controller
 
         $request->validate($reglas, $mensajes);
 
+        // para evitar ataques XSS, reemplaza < y > por -
         $request['category_name'] = str_replace(['<', '>'], '-', $request->category_name);
         $request['category_description'] = str_replace(['<', '>'], '-', $request->category_description);
 
@@ -67,12 +71,6 @@ class MainController extends Controller
             $nuevaCategoria->parent_id = $request->parent_id;
         }
         $nuevaCategoria->save();
-
-        if ($request->parent_id == '00')
-        {
-            $nuevaCategoria->parent_id = $nuevaCategoria->id;
-            $nuevaCategoria->save();
-        }
 
         return view('categories.creada')
             ->with([

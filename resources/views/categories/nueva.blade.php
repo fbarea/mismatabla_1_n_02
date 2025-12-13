@@ -3,7 +3,10 @@
 @section ('page-title', 'Crear categoría')
 
 @section ('content-area')
+
+
     <h2>Crear nueva categoría</h2>
+
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -13,6 +16,7 @@
             </ul>
         </div>
     @endif
+
     <form action="{{ route('categories.store') }}" method="post">
         @csrf
         <div class="row">
@@ -44,4 +48,5 @@
             </div>
         </div>
     </form>
+
 @endsection

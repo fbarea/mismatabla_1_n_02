@@ -27,7 +27,7 @@
                         <li>
                             <a class="dropdown-item" href="{{ route('categories.list',['type'=>'N']) }}">Listado por niveles</a>
                             <a class="dropdown-item" href="{{ route('categories.list',['type'=>'A']) }}">Listado alfabético</a>
-                            <a class="dropdown-item" href="#">Nueva categoría</a>
+                            <a class="dropdown-item" href="{{ route('categories.create') }}">Nueva categoría</a>
                         </li>
                     </ul>
                 </li>
