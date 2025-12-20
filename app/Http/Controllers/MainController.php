@@ -18,16 +18,11 @@ class MainController extends Controller
 
         $categorias = Collection::hierarchy(Category::class,'category_name',$type,'&nbsp;',4);
 
-        dd($categorias);
-
-
-        /*
         return view('categories.listado')
             ->with([
                 'categorias'=>$categorias,
                 'type'=>$type
             ]);
-            */
     }
 
     public function create(){
@@ -78,5 +73,61 @@ class MainController extends Controller
             ]);
     }
 
+    public function edit($id){
+
+        // todas las categorias
+        $categorias = Collection::hierarchy(Category::class, 'category_name', 'N', '&nbsp;', 4);
+
+        // categoria actual y sus hijas
+        $categoriaActualConHijas = Collection::hierarchy(Category::class, 'category_name', 'N', '&nbsp;', 4, $id);
+
+        // las disponibles serán todas quitando la actual y las hijas
+        $disponibles = $categorias->filter(function ($cat) use ($categoriaActualConHijas){
+            if($categoriaActualConHijas->contains('id',$cat->id) === false ){
+                return $cat;
+            }
+        });
+
+
+        $idDisponibles = $disponibles->pluck('id')->toArray();
+        $idDisponibles = implode(',',$idDisponibles);
+
+        $categoriaEnEdicion = Category::find($id);
+
+        return view('categories.editar')
+            ->with([
+                'categoriasDisponibles' => $disponibles,
+                'actual' => $categoriaEnEdicion,
+                'disponibles' => $idDisponibles
+            ]);
+
+    }
+
+    public function update(Request $request)
+    {
+        $reglas = [
+            'category_name' => 'required|max:255',
+            'parent_id' => 'nullable|in:'.$request->idsDisponibles
+        ];
+
+        $mensajes = [
+            'category_name.required' => 'Debes teclear el nombre de la nueva categoría.',
+            'category_name.max' => 'El nombre de la nueva categoría es muy largo.',
+            'parent_id.in' => 'La categoría padre seleccionada no está disponible.',
+        ];
+
+        $request->validate($reglas, $mensajes);
+
+        $actualizacion = Category::find($request->id);
+        $actualizacion->category_name = $request->category_name;
+        $actualizacion->category_description = $request->category_description;
+        $actualizacion->parent_id = $request->parent_id ?: null;
+        $actualizacion->save();
+
+        return view('categories.updated')
+            ->with([
+                'categoria'=>$actualizacion->category_name
+            ]);
+    }
 
 }

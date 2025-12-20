@@ -1,78 +1,24 @@
-
-/*main-layout*/
-
 .content-wrapper {
     padding-top: 80px; /* Ajusta según la altura del navbar */
 }
 
-
-
-.icono-rojo, .icono-clase-inactiva {
-    color: #b20300;
+.columna-de-boton {
+    width: 60px;
 }
 
-.icono-verde, .icono-clase-activa {
-    color: #008000;
-}
-
-.icono-azul {
-    color: #26d7dd;
-}
-
-.icono-de-editar-ciudad {
-    color: #ffd000;
-}
-
-.icono-de-borrar-ciudad, .icono-de-borrar-tarea {
-    color: #f00;
-}
-
-.icono-de-borrar-ciudad-anulado {
-    color: #696969;
-}
-
-.icono-de-ver-tareas {
-    cursor: pointer;
-}
-
-.celda-de-ver-ciudades, .celda-de-eliminar-tarea {
-    width: 40px;
+.celda-de-icono {
     text-align: center;
 }
 
-.celda-de-ciudades {
-    display: none;
-    padding: 0;
+.icono-editar {
+    color: #3103a4;
 }
 
-.tabla-de-ciudades {
-    width: 100%
+.icono-borrar {
+    color: #a40303;
 }
 
-.celda-de-rotulo-de-ciudades {
-    width: 150px;
-    text-align: center;
-}
-
-.celda-de-boton-de-nueva-ciudad {
-    min-width: 150px;
-    text-align: right;
-}
-
-.celda-de-nombre-de-ciudad, .celda-de-nombre-de-responsable {
-    min-width: 400px;
-}
-
-.celda-de-estado, .celda-de-editar-ciudad, .celda-de-eliminar-ciudad {
-    width: 50px;
-    text-align: center;
-}
-
-label {
-    width: 100%;
-    margin-bottom: 0;
-}
-
-.check-tarea {
-    margin-left: .25rem;
+.sin-dependencia {
+    color: red;
+    font-weight: bold;
 }

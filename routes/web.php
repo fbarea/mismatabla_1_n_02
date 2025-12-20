@@ -19,3 +19,6 @@ Route::get('/', 'App\Http\Controllers\MainController@index')->name('inicio');
 Route::get('listado/{type}',[MainController::class,'list'])->name('categories.list');
 Route::get('nueva',[MainController::class,'create'])->name('categories.create');
 Route::post('grabar',[MainController::class,'store'])->name('categories.store');
+Route::get('editar/{id}',[MainController::class,'edit'])->name('categories.edit');
+Route::post('update',[MainController::class,'update'])->name('categories.update');
+Route::get('borrar/{id}',[MainController::class,'delete'])->name('categories.delete');
