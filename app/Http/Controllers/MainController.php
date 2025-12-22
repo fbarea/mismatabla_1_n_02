@@ -124,9 +124,35 @@ class MainController extends Controller
         $actualizacion->parent_id = $request->parent_id ?: null;
         $actualizacion->save();
 
-        return view('categories.updated')
+        return redirect()->route('categories.list',['type' => 'N']);
+    }
+
+    public function previous_delete($id)
+    {
+
+        $category = Category::find($id);
+
+        return view('categories.confirm_delete')
             ->with([
-                'categoria'=>$actualizacion->category_name
+                'categoria' => $category,
+                'id' => $id
+            ]);
+
+    }
+
+    public function delete($id){
+
+        $categoriasEliminar = Collection::hierarchy(Category::class,'category_name','N','',0, $id);
+
+        $categoriasEliminar = $categoriasEliminar->map(function ($cat){
+            $cat->delete();
+            return $cat;
+        });
+
+        return view('categories.borradas')
+            ->with([
+                'eliminadas' => $categoriasEliminar,
+                'id' => $id
             ]);
     }
 

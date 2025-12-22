@@ -21,4 +21,5 @@ Route::get('nueva',[MainController::class,'create'])->name('categories.create');
 Route::post('grabar',[MainController::class,'store'])->name('categories.store');
 Route::get('editar/{id}',[MainController::class,'edit'])->name('categories.edit');
 Route::post('update',[MainController::class,'update'])->name('categories.update');
+Route::get('borrar_prev/{id}',[MainController::class,'previous_delete'])->name('categories.previous_delete');
 Route::get('borrar/{id}',[MainController::class,'delete'])->name('categories.delete');

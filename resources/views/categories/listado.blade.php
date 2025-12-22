@@ -32,7 +32,7 @@
                     </a>
                 </td>
                 <td class="table-danger celda-de-icono">
-                    <a href="{{ route('categories.delete', ['id'=>$categoria->id]) }}" title="Borrar">
+                    <a href="{{ route('categories.previous_delete', ['id'=>$categoria->id]) }}" title="Borrar">
                         <i class="material-icons icono-borrar">delete</i>
                     </a>
                 </td>
